@@ -53,9 +53,9 @@ After that we need a repository for our docker images.
 terraform apply -target=aws_ecr_repository.demo-repo
 ```
 
-Now we can push the docker image, this will allow as to capture the image URI and them update the value of "app_image" in variables.tf 
+Now we can push the docker image, this will allow as to capture the image URI and them ( :bangbang:	**This is important** :bangbang: ) update the value of "app_image" in the variables.tf file.
 
-**IMPORTANT**: Docker must be running in your local machine/WSL.
+:warning: **IMPORTANT**: Docker must be running in your local machine/WSL.
 ```bash
 terraform apply -target=null_resource.push
 ```
