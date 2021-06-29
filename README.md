@@ -116,6 +116,6 @@ cd scripts
 
 ## Documentation
 
-- [Docker file github repository](https://github.com/JManzur/flask-demo)
+- [Dockerfile github repository](https://github.com/JManzur/flask-demo)
 - [VPC Manifest github repository](https://github.com/JManzur/demo-vpc)
 - [Session Manager plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
