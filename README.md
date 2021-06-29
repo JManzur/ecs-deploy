@@ -4,14 +4,14 @@
 This terraform project deploy a production ready ECS Cluster using fargate instances. As an example I'm using a simple python-flask application of which you can learn more in [this link](https://github.com/JManzur/flask-demo).
 
 At the end of the deployment, you will have:
-- **Full VPC** with segmented subnets, nat gateway, basic routing tables, security groups and proper.
+- **Full VPC** with segmented subnets, nat gateway, basic routing tables and an initial security group.
 - **Elastic Container Registry (ECR)** with Lifecycle Policy.
 - **Automated and reusable way to build, tag and push a Docker image**. Every time you make a change to any file within the "docker-demo" folder (except the .md file), and then run "terraform apply" or "terraform apply -target=null_resource.push", this manifest will detect the hash change, and then it will "build" and "push" the new docker image.
 - **Application Load Balancer (ALB)** ready to route any request to the fargate instances, even when they are scale up or down.
 - **Security Groups** one to allow access from the outside world to the ALB, and other to provide secure access from the ALB to the ECS cluster private subnet.
 - **Auto Scaling configuration** based on an cloudwatch trigger that monitor the container cpu utilization. 
 - **IAM Role** capable of running ECS task, get parameter from the system manager parameter store, and allow the use of "ecs execute-command" to be able to access any docker container running inside a fargate instance. (ssh-like access). 
-    - **NOTE**: To achieve that, the flag "enable_execute_command" MUST be set to true in the ecs service definition.
+    - **NOTE**: To achieve that, the flag "enable_execute_command" MUST be set to "true" in the ecs service definition.
 - Working **Elastic Container Service (ECS)** cluster with the flask-demo app deployed and accessible via the ALB DNS. Which will be conveniently output at the end of the deployment using the "flask-alb-dns" value form the output.tf file.
 
 ## High level diagram:
@@ -29,7 +29,7 @@ At the end of the deployment, you will have:
 | WSL2 Ubuntu 20.04 | Docker (WSL Backend) | 20.10.7  |
 | WSL2 Ubuntu 20.04 | Python | 3.8.5 |
 
-## Initialization  How-To:
+## Initialization How-To:
 
 Located in the root directory, make an "aws configure" to log into the aws account, and a "terraform init" to download the necessary modules and start the backend. 
 
@@ -66,10 +66,9 @@ terraform apply
 
 ## Debugging / Troubleshooting:
 
-#### Debugging Tip #1: Accessing the fargate container
+#### **Debugging Tip #1**: Accessing the fargate container
  - The IAM policy, task definition and ecs services are ready to allow the use of "aws ecs execute-command", so if you want to access a fargate container you can do it using aws-cli as follows:
 
-    NOTE: Change the task "ID" as required
     ```bash
     aws ecs execute-command  \
         --region us-east-1 \
@@ -80,6 +79,8 @@ terraform apply
         --interactive
     ```
 
+**NOTE**: Change the task "ID" as required
+
 For ease of use, I wrote a simple bash script that you can use like this:
 
 ```bash
@@ -88,6 +89,17 @@ cd scripts
 ```
 - **NOTE 1**: Some attributes are hard-coded in the scripts, adjust them as needed.
 - **NOTE 2**: Session Manager plugin for the AWS CLI is needed.
+
+#### **Known issue #1**: Error during docker built
+ - **Issue**: During the docker build you receive the following error:
+
+    ```bash
+    ERROR: failed to authorize: rpc error: code = Unknown desc = failed to fetch oauth token: │ unexpected status: 400 Bad Request
+    ```
+
+- **Cause**: Temporary communication problem with docker hub.
+
+- **Solution**: Re-run the docker build command (or terrafrom manifest).
 
 ## Author
 
