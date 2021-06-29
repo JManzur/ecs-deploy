@@ -10,7 +10,6 @@ resource "aws_iam_role" "jm-ecs-role" {
   }
 }
 
-
 # ECS task execution role policy attachment
 resource "aws_iam_role_policy_attachment" "jm-ecs-role" {
   role       = aws_iam_role.jm-ecs-role.name
