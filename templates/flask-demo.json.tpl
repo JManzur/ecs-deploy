@@ -24,9 +24,9 @@
         "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/flask-demo",
+          "awslogs-group": "${app_cw_group}",
           "awslogs-region": "${aws_region}",
-          "awslogs-stream-prefix": "ecs-fd"
+          "awslogs-stream-prefix": "${app_cw_stream}"
         }
     },
     "extraHosts":null,

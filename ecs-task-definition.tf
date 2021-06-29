@@ -3,9 +3,11 @@ data "template_file" "flask-demo-tpl" {
   template = file("${var.templates_path}/flask-demo.json.tpl")
 
   vars = {
-    app_image  = var.app_image
-    aws_region = var.aws_region
-    app_port   = var.app_port
+    app_image     = var.app_image
+    aws_region    = var.aws_region
+    app_port      = var.app_port
+    app_cw_group  = var.cw_group
+    app_cw_stream = var.cw_stream
   }
 }
 

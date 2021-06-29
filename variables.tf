@@ -19,6 +19,17 @@ variable "tag_project" {
   default = "demo"
 }
 
+### Cloudwatch Variables:
+variable "cw_group" {
+  type    = string
+  default = "/ecs/flask-demo"
+}
+
+variable "cw_stream" {
+  type    = string
+  default = "fd-log-stream"
+}
+
 ### Path Variables:
 variable "source_path" {
   type    = string
