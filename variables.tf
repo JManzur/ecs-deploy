@@ -79,5 +79,5 @@ variable "app_port" {
 ###IMPORTANT: Update this value after running "terraform apply -target=null_resource.push"
 variable "app_image" {
   description = "Docker image to run in the ECS cluster"
-  default     = "036228551395.dkr.ecr.us-east-1.amazonaws.com/demo-repository:flask-demo-202106281342"
+  default     = "PLACE_HOLDER"
 }

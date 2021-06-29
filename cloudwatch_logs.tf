@@ -1,7 +1,7 @@
-##CloudWatch log group [15 days retention]
+##CloudWatch log group [30 days retention]
 resource "aws_cloudwatch_log_group" "fd-log_group" {
   name              = var.cw_group
-  retention_in_days = 15
+  retention_in_days = 30
 
   tags = merge(var.demo_tags, { Name = "${var.tag_project}-flask-lg" }, )
 }
@@ -10,6 +10,4 @@ resource "aws_cloudwatch_log_group" "fd-log_group" {
 resource "aws_cloudwatch_log_stream" "fd_log_stream" {
   name           = var.cw_stream
   log_group_name = aws_cloudwatch_log_group.fd-log_group.name
-
-  tags = merge(var.demo_tags, { Name = "${var.tag_project}-flask-ls" }, )
 }

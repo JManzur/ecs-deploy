@@ -90,6 +90,14 @@ cd scripts
 - **NOTE 1**: Some attributes are hard-coded in the scripts, adjust them as needed.
 - **NOTE 2**: Session Manager plugin for the AWS CLI is needed.
 
+#### **Debugging Tip #2**: Testing the Auto Scaling configuration
+- **Scale UP**: If the overall CPU utilization of the ECS Service go over 85% for more that 2 minutes (2 consecutive periods of 60 seconds), the auto scaling policy will deploy 1 more container and will continue doing so until it reaches the configured maximum of 6 containers. 
+- **Scale Down**: When the overall CPU utilization of the ECS Service go under 20% for more that 2 minutes (2 consecutive periods of 60 seconds), the auto scaling policy will take down 1 container and will continue doing so until it reaches the configured minimum of 3 containers.
+- **Testing**: If you wish to test the policy, you could access the containers using the method explained in the "Debugging Tip #1"  and then run a stress test like so:
+    ```bash
+    stress -c 1
+    ```
+
 #### **Known issue #1**: Error during docker built
  - **Issue**: During the docker build you receive the following error:
 

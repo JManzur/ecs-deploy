@@ -8,7 +8,7 @@
     "essential":true,
     "portMappings":[
         {
-            "containerPort":"${app_port}",
+            "containerPort":${app_port},
             "protocol":"tcp"
         }
     ],
