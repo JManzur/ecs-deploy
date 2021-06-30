@@ -4,7 +4,7 @@
 This terraform project deploy a production ready ECS Cluster using fargate instances. As an example I'm using a simple python-flask application of which you can learn more in [this link](https://github.com/JManzur/flask-demo).
 
 At the end of the deployment, you will have:
-- **Full VPC** with segmented subnets, nat gateway, basic routing tables and an initial security group.
+- **Full VPC** with segmented subnets, nat gateway, internet gateway, basic routing tables and an initial security group.
 - **Elastic Container Registry (ECR)** with Lifecycle Policy.
 - **Automated and reusable way to build, tag and push a Docker image**. Every time you make a change to any file within the "docker-demo" folder (except the .md file), and then run "terraform apply" or "terraform apply -target=null_resource.push", this manifest will detect the hash change, and then it will "build" and "push" the new docker image.
 - **Application Load Balancer (ALB)** ready to route any request to the fargate instances, even when they are scale up or down.
