@@ -56,6 +56,7 @@ module "vpc" {
   vpc_flow_log_tags = merge(var.demo_tags, { Name = "${var.tag_project}-vpc_logs" }, )
 }
 
+## Data Sources declarations ##
 ## Fetch the vpc id to print and use the output
 data "aws_vpc" "selected" {
   filter {

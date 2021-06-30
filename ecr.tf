@@ -12,6 +12,7 @@ resource "aws_ecr_repository" "demo-repo" {
 }
 
 # ECR Lifecycle Policy
+# Keep two copies of any given image with the tag prefix "flask-demo-"
 resource "aws_ecr_lifecycle_policy" "demo-repo-policy" {
   repository = aws_ecr_repository.demo-repo.name
 
