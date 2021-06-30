@@ -7,14 +7,14 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = "demo-vpc"
-  cidr = "20.10.0.0/16"
+  cidr = "10.10.0.0/16"
 
   #AZ's and Subnets Definition
   azs              = ["${var.aws_region}a", "${var.aws_region}b", "${var.aws_region}c"]
-  private_subnets  = ["20.10.1.0/24", "20.10.2.0/24", "20.10.3.0/24"]
-  public_subnets   = ["20.10.11.0/24", "20.10.12.0/24", "20.10.13.0/24"]
-  database_subnets = ["20.10.21.0/24", "20.10.22.0/24", "20.10.23.0/24"]
-  intra_subnets    = ["20.10.31.0/24", "20.10.32.0/24", "20.10.33.0/24"]
+  private_subnets  = ["10.10.1.0/24", "10.10.2.0/24", "10.10.3.0/24"]
+  public_subnets   = ["10.10.11.0/24", "10.10.12.0/24", "10.10.13.0/24"]
+  database_subnets = ["10.10.21.0/24", "10.10.22.0/24", "10.10.23.0/24"]
+  intra_subnets    = ["10.10.31.0/24", "10.10.32.0/24", "10.10.33.0/24"]
 
   tags                 = merge(var.demo_tags, { Name = "${var.tag_project}-vpc" }, )
   database_subnet_tags = merge(var.demo_tags, { Name = "${var.tag_project}-db_subnet" }, )
