@@ -17,7 +17,7 @@ At the end of the deployment, you will have:
 
 ## High level diagram:
 
-![App Screenshot](https://1.bp.blogspot.com/-llkxXDRF5Tk/YW2ATdTOhsI/AAAAAAAAFtc/wb9suWb3W7svw4PQrUCyctC_McLkvVAGwCLcBGAsYHQ/s909/demo-ecs.drawio.png)
+![App Screenshot](./demo-ecs.drawio.png)
 
 ## Tested with: 
 
