@@ -17,7 +17,7 @@ At the end of the deployment, you will have:
 
 ## High level diagram:
 
-![App Screenshot](./demo-ecs.drawio.png)
+![App Screenshot](./images/demo-ecs.drawio.png)
 
 ## Tested with: 
 
