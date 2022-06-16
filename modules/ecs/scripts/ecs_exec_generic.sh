@@ -10,7 +10,6 @@ decorator () {
     echo -ne '[###############.....](75%)\r'
     sleep 1
     echo -ne '[####################](100%)\r'
-    sleep 1
     echo -e '\n'
 }
 
@@ -38,6 +37,7 @@ do
             decorator; generate_task_list
             echo -e '\n'
             read -p "Input your Task ID (Copy and paste one of the above): " TASK_ID
+            echo -e '\n'
             echo "Using variales: $AWS_PROFILE $AWS_REGION $ECS_CLUSTER $CONTAINER_NAME $TASK_ID"
 			aws ecs execute-command --cluster $ECS_CLUSTER --task $TASK_ID --container $CONTAINER_NAME --command "/bin/bash" --interactive --region $AWS_REGION --profile $AWS_PROFILE
 			exit 0
@@ -49,6 +49,7 @@ do
             decorator; generate_task_list
             echo -e '\n'
             read -p "Input your Task ID (Copy and paste one of the above): " TASK_ID
+            echo -e '\n'
             echo "Using variales: $AWS_REGION $ECS_CLUSTER $CONTAINER_NAME $TASK_ID"
 			aws ecs execute-command --cluster $ECS_CLUSTER --task $TASK_ID --container $CONTAINER_NAME --command "/bin/bash" --interactive --region $AWS_REGION
 			exit 0
@@ -63,14 +64,3 @@ do
 			;;
 	esac
 done
-
-generate_task_list () {
-    TASK_LIST=$(aws ecs list-tasks --cluster demo-cluster --family demo_flask_app --region us-east-1 | jq -r '.taskArns' | jq -r '.[]' | awk -F "/" '{print $3}')
-    array=(${TASK_LIST/// })
-    echo "Task ID List:"
-    echo ""
-    for i in "${!array[@]}"
-        do
-            echo "Task ID $i = ${array[i]}"
-        done
-}
