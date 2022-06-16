@@ -1,11 +1,6 @@
 #!/bin/bash
 
-RED="\e[31m"
-GREEN="\e[32m"
-YELLOW="\e[33m"
-BLUE="\e[34m"
-ENDCOLOR="\e[0m"
-
+# Bash Functions:
 decorator () {
     echo -e "Generating Task List: \n"
     echo -ne '[....................](00%)\r'
@@ -31,6 +26,33 @@ generate_task_list () {
         done
 }
 
+# Commands validation:
+CMMD="session-manager-plugin"
+
+if command -v $CMMD > /dev/null
+	then
+		echo "" > /dev/null
+	else
+		echo "[ERROR] $CMMD not installed - Please install $CMMD to continue"
+        echo -e '\n'
+        echo "Ref: https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html"
+        echo -e '\n'
+		exit 1
+fi
+
+CMMD2="jq"
+
+if command -v $CMMD2 > /dev/null
+	then
+		echo "" > /dev/null
+	else
+		echo "[ERROR] $CMMD2 not installed - Please install $CMMD2 to continue"
+        echo -e '\n'
+        echo "Ref: https://stedolan.github.io/jq/download/"
+        echo -e '\n'
+		exit 1
+fi
+
 PS3='Are you using a Profile? (Select an option): '
 OPTIONS=("Yes" "No" "Quit")
 select opt in "${OPTIONS[@]}"
@@ -45,7 +67,7 @@ do
             echo -e '\n'
             read -p "Input your Task ID (Copy and paste one of the above): " TASK_ID
             echo -e '\n'
-            echo -e "[${BLUE}INFO${ENDCOLOR}] Using variales: $AWS_PROFILE $AWS_REGION $ECS_CLUSTER $CONTAINER_NAME $TASK_ID"
+            echo -e "[INFO] Using variales: $AWS_PROFILE $AWS_REGION $ECS_CLUSTER $CONTAINER_NAME $TASK_ID"
 			aws ecs execute-command --cluster $ECS_CLUSTER --task $TASK_ID --container $CONTAINER_NAME --command "/bin/bash" --interactive --region $AWS_REGION --profile $AWS_PROFILE
 			exit 0
 			;;
@@ -57,16 +79,16 @@ do
             echo -e '\n'
             read -p "Input your Task ID (Copy and paste one of the above): " TASK_ID
             echo -e '\n'
-            echo -e "[${BLUE}INFO${ENDCOLOR}] Using variales: $AWS_REGION $ECS_CLUSTER $CONTAINER_NAME $TASK_ID"
+            echo -e "[INFO] Using variales: $AWS_REGION $ECS_CLUSTER $CONTAINER_NAME $TASK_ID"
 			aws ecs execute-command --cluster $ECS_CLUSTER --task $TASK_ID --container $CONTAINER_NAME --command "/bin/bash" --interactive --region $AWS_REGION
 			exit 0
 			;;
 		"Quit")
-			echo -e "[${BLUE}INFO${ENDCOLOR}] Script ended"
+			echo -e "[INFO] Script ended"
 			break
 			;;
 		*)
-			echo -e "[${RED}ERROR${ENDCOLOR}] $REPLY Is an invalid option - Select the option NUMBER, for example: 1"
+			echo -e "[ERROR] $REPLY Is an invalid option - Select the option NUMBER, for example: 1"
 			exit 1
 			;;
 	esac
