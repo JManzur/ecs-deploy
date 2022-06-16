@@ -15,13 +15,14 @@ fi
 if [ $# = 1 ]
 then
 	PS3='Please select a task famlily: '
-	OPTIONS=("demo_app" "Quit")
+	OPTIONS=("demo_flask_app" "Quit")
 	select opt in "${OPTIONS[@]}"
 	do
 		case $opt in
-			"demo_app")
-				TaskID=$(aws ecs list-tasks --cluster demo-cluster --family demo_app --region $AWS_REGION | jq -r '.taskArns[0]' | awk -F "/" '{print $3}')
-				aws ecs execute-command --cluster demo-cluster --task $TaskID --container demo_app --command "/bin/bash" --interactive --region $AWS_REGION
+			"demo_flask_app")
+				TaskID=$(aws ecs list-tasks --cluster demo-cluster --family demo_flask_app --region $AWS_REGION | jq -r '.taskArns[0]' | awk -F "/" '{print $3}')
+				echo "TaskID = ${TaskID}"
+				aws ecs execute-command --cluster demo-cluster --task $TaskID --container demo_flask_app --command "/bin/bash" --interactive --region $AWS_REGION
 				exit 0
 				;;
 			"Quit")
@@ -37,13 +38,14 @@ then
 fi
 
 PS3='Please select a task famlily: '
-OPTIONS=("demo_app" "Quit")
+OPTIONS=("demo_flask_app" "Quit")
 select opt in "${OPTIONS[@]}"
 do
 	case $opt in
-		"demo_app")
-			TaskID=$(aws ecs list-tasks --cluster demo-cluster --family demo_app --region $AWS_REGION --profile $AWS_PROFILE | jq -r '.taskArns[0]' | awk -F "/" '{print $3}')
-			aws ecs execute-command --cluster demo-cluster --task $TaskID --container demo_app --command "/bin/bash" --interactive --region $AWS_REGION --profile $AWS_PROFILE
+		"demo_flask_app")
+			TaskID=$(aws ecs list-tasks --cluster demo-cluster --family demo_flask_app --region $AWS_REGION --profile $AWS_PROFILE | jq -r '.taskArns[0]' | awk -F "/" '{print $3}')
+			echo "TaskID = ${TaskID}"
+			aws ecs execute-command --cluster demo-cluster --task $TaskID --container demo_flask_app --command "/bin/bash" --interactive --region $AWS_REGION --profile $AWS_PROFILE
 			exit 0
 			;;
 		"Quit")
@@ -56,3 +58,7 @@ do
 			;;
 	esac
 done
+
+list_task_id () {
+	echo "Do something important $1"
+}
