@@ -25,7 +25,7 @@ images = [
 ]
 
 def demo_available():
-	code = urllib.request.urlopen("http://127.0.0.1:5000").getcode()
+	code = urllib.request.urlopen("http://127.0.0.1:8082").getcode()
 	print(code)
 	if code == 200:
 		return True, "OK"
