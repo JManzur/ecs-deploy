@@ -8,7 +8,7 @@ variable "public_subnet" {}
 variable "demo_app" {
   type = map(string)
   default = {
-    "name"        = "demo_app"
+    "name"        = "demo_flask_app"
     "port"        = 8082
     "cpu"         = 1024
     "memory"      = 2048

@@ -13,7 +13,7 @@ resource "null_resource" "push" {
 
   provisioner "local-exec" {
     #{push.sh} {aws_region} {aws_profile} {SOURCE_CODE} {ECR_URL} {IMAGE_TAG}
-    command     = "${coalesce("${path.module}/scripts/push.sh")} ${var.aws_region} ${var.aws_profile} ${path.module}/docker/demo-app ${aws_ecr_repository.demo_app_repository.repository_url} latest"
+    command     = "${coalesce("${path.module}/scripts/push.sh")} ${var.aws_region} ${var.aws_profile} ${path.module}/docker/demo-app ${aws_ecr_repository.demo_app_flask_repository.repository_url} latest"
     interpreter = ["bash", "-c"]
   }
 }
@@ -24,7 +24,7 @@ data "template_file" "demo_app_tpl" {
 
   vars = {
     app_name      = var.demo_app["name"]
-    app_image     = aws_ecr_repository.demo_app_repository.repository_url
+    app_image     = aws_ecr_repository.demo_app_flask_repository.repository_url
     aws_region    = var.aws_region
     app_port      = var.demo_app["port"]
     app_cw_group  = aws_cloudwatch_log_group.log_group.name

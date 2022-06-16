@@ -1,6 +1,6 @@
 # Elastic Container Registry Definition
-resource "aws_ecr_repository" "demo_app_repository" {
-  name                 = "demo_app_repository"
+resource "aws_ecr_repository" "demo_app_flask_repository" {
+  name                 = "demo_app_flask_repository"
   image_tag_mutability = "MUTABLE"
   tags                 = { Name = "${var.name-prefix}-ECR" }
 
@@ -12,7 +12,7 @@ resource "aws_ecr_repository" "demo_app_repository" {
 # ECR Lifecycle Policy
 resource "aws_ecr_lifecycle_policy" "ecr_lifecycle_policy" {
   for_each = toset([
-    aws_ecr_repository.demo_app_repository.name
+    aws_ecr_repository.demo_app_flask_repository.name
   ])
   repository = each.key
 
