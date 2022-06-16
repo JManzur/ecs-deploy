@@ -1,4 +1,11 @@
 #!/bin/bash
+
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+BLUE="\e[34m"
+ENDCOLOR="\e[0m"
+
 decorator () {
     echo -e "Generating Task List: \n"
     echo -ne '[....................](00%)\r'
@@ -38,7 +45,7 @@ do
             echo -e '\n'
             read -p "Input your Task ID (Copy and paste one of the above): " TASK_ID
             echo -e '\n'
-            echo "Using variales: $AWS_PROFILE $AWS_REGION $ECS_CLUSTER $CONTAINER_NAME $TASK_ID"
+            echo -e "[${BLUE}INFO${ENDCOLOR}] Using variales: $AWS_PROFILE $AWS_REGION $ECS_CLUSTER $CONTAINER_NAME $TASK_ID"
 			aws ecs execute-command --cluster $ECS_CLUSTER --task $TASK_ID --container $CONTAINER_NAME --command "/bin/bash" --interactive --region $AWS_REGION --profile $AWS_PROFILE
 			exit 0
 			;;
@@ -50,16 +57,16 @@ do
             echo -e '\n'
             read -p "Input your Task ID (Copy and paste one of the above): " TASK_ID
             echo -e '\n'
-            echo "Using variales: $AWS_REGION $ECS_CLUSTER $CONTAINER_NAME $TASK_ID"
+            echo -e "[${BLUE}INFO${ENDCOLOR}] Using variales: $AWS_REGION $ECS_CLUSTER $CONTAINER_NAME $TASK_ID"
 			aws ecs execute-command --cluster $ECS_CLUSTER --task $TASK_ID --container $CONTAINER_NAME --command "/bin/bash" --interactive --region $AWS_REGION
 			exit 0
 			;;
 		"Quit")
-			echo "[INFO] Script ended"
+			echo -e "[${BLUE}INFO${ENDCOLOR}] Script ended"
 			break
 			;;
 		*)
-			echo "[ERROR] $REPLY is an invalid option"
+			echo -e "[${RED}ERROR${ENDCOLOR}] $REPLY Is an invalid option - Select the option NUMBER, for example: 1"
 			exit 1
 			;;
 	esac
