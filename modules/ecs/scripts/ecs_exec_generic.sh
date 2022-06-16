@@ -26,21 +26,20 @@ generate_task_list () {
         done
 }
 
-# Commands validation:
-CMMD="session-manager-plugin"
+# Validate if session-manager-plugin and jq ar installed.
+CMMD1="session-manager-plugin"
+CMMD2="jq"
 
-if command -v $CMMD > /dev/null
+if command -v $CMMD1 > /dev/null
 	then
 		echo "" > /dev/null
 	else
-		echo "[ERROR] $CMMD not installed - Please install $CMMD to continue"
+		echo "[ERROR] $CMMD1 not installed - Please install $CMMD1 to continue"
         echo -e '\n'
         echo "Ref: https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html"
         echo -e '\n'
 		exit 1
 fi
-
-CMMD2="jq"
 
 if command -v $CMMD2 > /dev/null
 	then
@@ -53,6 +52,7 @@ if command -v $CMMD2 > /dev/null
 		exit 1
 fi
 
+# Interactive prompt to start the SSM session in an ECS (Fargate) task:
 PS3='Are you using a Profile? (Select an option): '
 OPTIONS=("Yes" "No" "Quit")
 select opt in "${OPTIONS[@]}"
