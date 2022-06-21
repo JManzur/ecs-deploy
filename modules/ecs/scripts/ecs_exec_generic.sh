@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Bash Functions:
+# Progress bar decorator functions:
 decorator () {
     echo -e "Generating Task List: \n"
     echo -ne '[....................](00%)\r'
@@ -15,6 +15,7 @@ decorator () {
     echo -e '\n'
 }
 
+# Function to generate a list of task IDs (no aws profile):
 generate_task_list () {
     TASK_LIST=$(aws ecs list-tasks --cluster $ECS_CLUSTER --family $CONTAINER_FAMILY --region $AWS_REGION | jq -r '.taskArns' | jq -r '.[]' | awk -F "/" '{print $3}')
     array=(${TASK_LIST/// })
@@ -26,6 +27,7 @@ generate_task_list () {
         done
 }
 
+# Function to generate a list of task IDs (when using an aws profile):
 generate_task_list_profile () {
     TASK_LIST=$(aws ecs list-tasks --cluster $ECS_CLUSTER --family $CONTAINER_FAMILY --region $AWS_REGION --profile $AWS_PROFILE | jq -r '.taskArns' | jq -r '.[]' | awk -F "/" '{print $3}')
     array=(${TASK_LIST/// })
@@ -37,7 +39,7 @@ generate_task_list_profile () {
         done
 }
 
-# Validate if session-manager-plugin and jq ar installed.
+# Validate if session-manager-plugin is installed:
 CMMD1="session-manager-plugin"
 CMMD2="jq"
 
@@ -52,6 +54,7 @@ if command -v $CMMD1 > /dev/null
 		exit 1
 fi
 
+# Validate if jq is installed:
 if command -v $CMMD2 > /dev/null
 	then
 		echo "" > /dev/null
