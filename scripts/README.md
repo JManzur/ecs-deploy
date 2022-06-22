@@ -30,13 +30,18 @@ This folder contains two bash scripts that can be used to connect to a ECS Farga
 
 ## How to get the "Container Family Name"
 
+The "Container Family Name" is the key to the lookup function, so you need to specify this value in both scripts, if you don't know that value, here's how you can find it:
+
 Go to your ECS Cluster, select "Task Definitions" and then select the task definition:
+
 ![App Screenshot 01](../images/ecs_exec_script01.png)
 
-Navigate to the json view of the task definition
+Navigate to the json view of the task definition:
+
 ![App Screenshot 02](../images/ecs_exec_script02.png)
 
-Do a search for the key "family", and the value of that key is the family name of your container.
+Do a search for the key "family", and the value of that key is the family name of your container:
+
 ![App Screenshot 03](../images/ecs_exec_script03.png)
 
 ## Tested with: 
