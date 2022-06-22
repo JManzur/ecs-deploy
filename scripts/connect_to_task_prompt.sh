@@ -4,13 +4,13 @@
 decorator () {
     echo -e "Generating Task List: \n"
     echo -ne '[....................](00%)\r'
-    sleep 1
+    sleep .5
     echo -ne '[#####...............](25%)\r'
-    sleep 1
+    sleep .5
     echo -ne '[##########..........](50%)\r'
-    sleep 1
+    sleep .5
     echo -ne '[###############.....](75%)\r'
-    sleep 1
+    sleep .5
     echo -ne '[####################](100%)\r'
     echo -e '\n'
 }
@@ -18,52 +18,58 @@ decorator () {
 # Function to generate a list of task IDs (no aws profile):
 generate_task_list () {
     TASK_LIST=$(aws ecs list-tasks --cluster $ECS_CLUSTER --family $CONTAINER_FAMILY --region $AWS_REGION | jq -r '.taskArns' | jq -r '.[]' | awk -F "/" '{print $3}')
-    array=(${TASK_LIST/// })
+    task_array=(${TASK_LIST/// })
     echo "Task ID List:"
     echo ""
-    for i in "${!array[@]}"
+    for i in "${!task_array[@]}"
         do
-            echo "Task ID $i = ${array[i]}"
+            echo "Task ID $i = ${task_array[i]}"
         done
 }
 
 # Function to generate a list of task IDs (when using an aws profile):
 generate_task_list_profile () {
     TASK_LIST=$(aws ecs list-tasks --cluster $ECS_CLUSTER --family $CONTAINER_FAMILY --region $AWS_REGION --profile $AWS_PROFILE | jq -r '.taskArns' | jq -r '.[]' | awk -F "/" '{print $3}')
-    array=(${TASK_LIST/// })
+    task_array=(${TASK_LIST/// })
     echo "Task ID List:"
     echo ""
-    for i in "${!array[@]}"
+    for i in "${!task_array[@]}"
         do
-            echo "Task ID $i = ${array[i]}"
+            echo "Task ID $i = ${task_array[i]}"
         done
 }
 
-# Validate if session-manager-plugin is installed:
-CMMD1="session-manager-plugin"
-CMMD2="jq"
+# Check if the necessary commands are installed
+declare -A commands_array=(
+    [session-manager-plugin]="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html"
+    [jq]="https://stedolan.github.io/jq/download/"
+    [aws]="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
+)
 
-if command -v $CMMD1 > /dev/null
-	then
-		echo "" > /dev/null
-	else
-		echo "[ERROR] $CMMD1 not installed - Please install $CMMD1 to continue"
-        echo -e '\n'
-        echo "Ref: https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html"
-        echo -e '\n'
-		exit 1
-fi
+for key in "${!commands_array[@]}"; 
+do
+    if command -v $key > /dev/null
+        then
+            echo "" > /dev/null
+        else
+            echo "[ERROR] $key not installed - Please install $key to continue"
+            echo -e '\n'
+            echo "Ref: ${commands_array[$key]}"
+            echo -e '\n'
+            exit 1
+    fi
+done
 
-# Validate if jq is installed:
-if command -v $CMMD2 > /dev/null
-	then
-		echo "" > /dev/null
-	else
-		echo "[ERROR] $CMMD2 not installed - Please install $CMMD2 to continue"
-        echo -e '\n'
-        echo "Ref: https://stedolan.github.io/jq/download/"
-        echo -e '\n'
-		exit 1
+# Validate AWS CLI version:
+INSTALLED_AWS_CLI_VERSION=$(aws --version | awk -F "/" '{print $2}' | awk -F " " '{print $1}')
+if [[ ("$INSTALLED_AWS_CLI_VERSION" < "$REQUIRED_AWS_CLI_VERSION") ]]; then
+    echo -e '\n'
+    echo "[ERROR] AWS CLI version $REQUIRED_AWS_CLI_VERSION or higher is required"
+    echo "Please update the AWS CLI and try again:"
+    echo "Ref: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
+    exit 1
+else
+    echo "" > /dev/null
 fi
 
 # Interactive prompt to start the SSM session in an ECS (Fargate) task:
