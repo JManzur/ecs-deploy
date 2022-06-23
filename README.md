@@ -53,7 +53,11 @@ terraform apply
  - The IAM policy, task definition and ecs services are ready to allow the use of "aws ecs execute-command", so if you want to access a fargate container you can do it using aws-cli as follows:
 
 ```bash
+#Format:
 aws ecs execute-command --cluster {CLUSTER_NAME} --task {TASK_ID} --container {CONTAINER_NAME} --command "/bin/bash" --interactive --region {REGION} --profile {PROFILE}
+
+#Example:
+aws ecs execute-command --cluster demo-cluster --task 18f1e118-07d1-44f2-ad61-37d35d70e145 --container demo_flask_app --command "/bin/bash" --interactive --region us-east-1 --profile SomeProfile
 ```
 
 > :information_source: For ease of use I wrote two bash scripts which you can learn more about [here](https://github.com/JManzur/ecs-deploy/tree/main/scripts).
