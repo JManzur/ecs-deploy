@@ -53,25 +53,10 @@ terraform apply
  - The IAM policy, task definition and ecs services are ready to allow the use of "aws ecs execute-command", so if you want to access a fargate container you can do it using aws-cli as follows:
 
 ```bash
-aws ecs execute-command  \
-    --region us-east-1 \
-    --cluster demo-cluster \
-    --task 35e09a0b9eca4562b5a2bac1386f7cea \
-    --container flask-demo \
-    --command "/bin/bash" \
-    --interactive
+aws ecs execute-command --cluster {CLUSTER_NAME} --task {TASK_ID} --container {CONTAINER_NAME} --command "/bin/bash" --interactive --region {REGION} --profile {PROFILE}
 ```
 
-**NOTE**: Change the task "ID" as required
-
-For ease of use, I wrote a simple bash script that you can use like this:
-
-```bash
-cd modules/scripts
-./ecs_exec_cmd.sh
-```
-- **NOTE 1**: Some attributes are hard-coded in the scripts, adjust them as needed.
-- **NOTE 2**: [Session Manager plugin for the AWS CLI is needed](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html).
+> :information_source: For ease of use I wrote two bash scripts which you can learn more about [here](https://github.com/JManzur/ecs-deploy/tree/main/scripts).
 
 #### **Debugging Tip #2**: Testing the Auto Scaling configuration
 - **Scale UP**: If the overall CPU utilization of the ECS Service go over 85% for more that 2 minutes (2 consecutive periods of 60 seconds), the auto scaling policy will deploy 1 more container and will continue doing so until it reaches the configured maximum of 6 containers. 
