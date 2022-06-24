@@ -28,7 +28,7 @@ resource "aws_subnet" "public" {
   cidr_block              = cidrsubnet(var.vpcCidr, each.value.newbits, each.value.netnum)
   availability_zone       = data.aws_availability_zones.available.names[each.value.az]
   map_public_ip_on_launch = true
-  tags                    = { Name = "${var.name-prefix}-${each.value.name}" }
+  tags                    = { Name = "${var.name-prefix}-${each.value.name}-AZ${each.value.az}" }
 }
 
 # Private Subnets
@@ -37,7 +37,7 @@ resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = cidrsubnet(var.vpcCidr, each.value.newbits, each.value.netnum)
   availability_zone = data.aws_availability_zones.available.names[each.value.az]
-  tags              = { Name = "${var.name-prefix}-${each.value.name}" }
+  tags              = { Name = "${var.name-prefix}-${each.value.name}-AZ${each.value.az}" }
 }
 
 # Internet Gateway

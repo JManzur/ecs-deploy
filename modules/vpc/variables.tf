@@ -20,13 +20,13 @@ variable "PublicSubnet-List" {
   }))
   default = [
     {
-      name    = "Public-0"
+      name    = "Public"
       az      = 0
       newbits = 8
       netnum  = 10
     },
     {
-      name    = "Public-1"
+      name    = "Public"
       az      = 1
       newbits = 8
       netnum  = 11
@@ -43,13 +43,13 @@ variable "PrivateSubnet-List" {
   }))
   default = [
     {
-      name    = "Private-0"
+      name    = "Private"
       az      = 0
       newbits = 8
       netnum  = 20
     },
     {
-      name    = "Private-1"
+      name    = "Private"
       az      = 1
       newbits = 8
       netnum  = 21
