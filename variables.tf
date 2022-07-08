@@ -23,3 +23,13 @@ variable "name-prefix" {
   type    = string
   default = "ECS-POC"
 }
+
+variable "DeployThisModule" {
+  type    = bool
+  default = false
+}
+
+variable "scan_docker_image_on_push" {
+  type        = bool
+  description = false
+}

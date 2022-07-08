@@ -5,7 +5,7 @@ resource "aws_ecr_repository" "demo_app_flask_repository" {
   tags                 = { Name = "${var.name-prefix}-ECR" }
 
   image_scanning_configuration {
-    scan_on_push = false
+    scan_on_push = var.scan_docker_image_on_push
   }
 }
 

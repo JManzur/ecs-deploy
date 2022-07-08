@@ -1,10 +1,13 @@
-variable "name-prefix" {}
+variable "scan_docker_image_on_push" {}
+
+
+
+
 variable "aws_region" {}
 variable "aws_profile" {}
 variable "vpc_id" {}
 variable "private_subnet" {}
 variable "public_subnet" {}
-variable "scan_docker_image_on_push" {}
 
 variable "demo_app" {
   type = map(string)
