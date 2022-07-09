@@ -1,5 +1,7 @@
 #JManzur
 .env
+*.env
+/.env
 
 # Local .terraform directories
 **/.terraform/*
