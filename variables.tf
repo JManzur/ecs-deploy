@@ -12,9 +12,9 @@ variable "aws_profile" {
 variable "project-tags" {
   type = map(string)
   default = {
-    service     = "ECS-POC",
-    environment = "POC"
-    DeployedBy  = "example@mail.com"
+    Service     = "ECS-POC",
+    Environment = "POC",
+    DeployedBy  = "JManzur - https://jmanzur.com"
   }
 }
 
@@ -30,6 +30,25 @@ variable "DeployThisModule" {
 }
 
 variable "scan_docker_image_on_push" {
-  type        = bool
-  description = false
+  type    = bool
+  default = false
+}
+
+variable "DB_USERNAME" {}
+
+variable "DB_PASSWORD" {}
+
+#Use: var.engine["engine"]
+variable "database" {
+  type = map(any)
+  default = {
+    "port"         = 3306,
+    "identifier"   = "mysqlpoc",
+    "engine"       = "mysql",
+    "version"      = "8.0.29",
+    "class"        = "db.t3.micro",
+    "name"         = "pocdb",
+    "storage"      = 20,
+    "subnet_group" = "mysql_subnet_group"
+  }
 }

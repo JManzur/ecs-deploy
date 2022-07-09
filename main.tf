@@ -18,7 +18,13 @@ module "ecs" {
 }
 
 module "advance_demo" {
-  source                    = "./modules/advance_demo"
-  count                     = var.DeployThisModule ? 1 : 0
+  source = "./modules/advance_demo"
+  #count                     = var.DeployThisModule ? 1 : 0
   scan_docker_image_on_push = var.scan_docker_image_on_push
+  database                  = var.database
+  DB_USERNAME               = var.DB_USERNAME
+  DB_PASSWORD               = var.DB_PASSWORD
+  private_subnet            = module.vpc.private_subnet
+  vpc_id                    = module.vpc.vpc_id
+  vpc_cidr                  = module.vpc.vpc_cidr
 }

@@ -1,13 +1,10 @@
 variable "scan_docker_image_on_push" {}
-
-
-
-
-variable "aws_region" {}
-variable "aws_profile" {}
-variable "vpc_id" {}
+variable "DB_USERNAME" {}
+variable "DB_PASSWORD" {}
+variable "database" {}
 variable "private_subnet" {}
-variable "public_subnet" {}
+variable "vpc_id" {}
+variable "vpc_cidr" {}
 
 variable "demo_app" {
   type = map(string)

@@ -5,7 +5,7 @@ data "aws_ecr_authorization_token" "ecr_token" {}
 
 # Make a "docker build" and "docker push" if the hash of the Dockerfile directory change.
 resource "null_resource" "push" {
-  triggers = { always_run = "${timestamp()}" }
+  #triggers = { always_run = "${timestamp()}" }
 
   provisioner "local-exec" {
     command = "echo ${data.aws_ecr_authorization_token.ecr_token.password}"

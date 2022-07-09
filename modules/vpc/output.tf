@@ -12,3 +12,8 @@ output "private_subnet" {
   value       = values(aws_subnet.private)[*].id
   description = "Private Subnets ID"
 }
+
+output "vpc_cidr" {
+  value       = var.vpcCidr
+  description = "The VPC CIDR Block"
+}
