@@ -13,7 +13,7 @@ resource "null_resource" "push" {
 
   provisioner "local-exec" {
     #{push.sh} {aws_region} {aws_profile} {SOURCE_CODE} {ECR_URL} {IMAGE_TAG}
-    command     = "${coalesce("${path.module}/scripts/push.sh")} ${var.aws_region} ${var.aws_profile} ${path.module}/docker/demo-app ${aws_ecr_repository.demo_app_flask_repository.repository_url} latest"
+    command     = "${coalesce("${path.root}/scripts/push.sh")} ${var.aws_region} ${var.aws_profile} ${path.module}/docker/demo-app ${aws_ecr_repository.demo_app_flask_repository.repository_url} latest"
     interpreter = ["bash", "-c"]
   }
 }

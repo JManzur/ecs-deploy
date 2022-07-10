@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: f615a9bed8ff
+    image: 02d9010431e9
     container_name: DB_TEST
     restart: unless-stopped
     environment:

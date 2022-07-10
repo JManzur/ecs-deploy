@@ -16,3 +16,7 @@ def read_root():
         "Hostname": "{}".format(hostname),
         "StatusCode": HTTP_200_OK
         })
+
+@app.get('/status', status_code=HTTP_200_OK)
+def perform_healthcheck():
+    return {'healthcheck': 'Everything OK!'}
