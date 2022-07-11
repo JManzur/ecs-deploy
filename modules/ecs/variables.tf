@@ -11,12 +11,12 @@ variable "scan_docker_image_on_push" {}
 /* Locals variables: */
 
 variable "demo_app" {
-  type = map(string)
+  type = map(any)
   default = {
-    "name"        = "demo_flask_app"
-    "port"        = 8082
-    "cpu"         = 1024
-    "memory"      = 2048
+    "name"        = "demo_flask_app",
+    "port"        = 8082,
+    "cpu"         = 1024,
+    "memory"      = 2048,
     "healthcheck" = "/status"
   }
 }
