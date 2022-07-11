@@ -52,7 +52,19 @@ terraform init
 
 ## Deployment How-To:
 
-Located in the root directory run the manifests:
+Located in the root directory  create an .env file in with a content like the following:
+
+```bash
+export TF_VAR_DB_USERNAME=YOUR_DB_USERNAME
+export TF_VAR_DB_PASSWORD='YOUR_DB_PASSWORD'
+```
+
+Source the .env file:
+```bash
+source .env
+```
+
+And run the manifests:
 
 ```bash
 terraform apply
