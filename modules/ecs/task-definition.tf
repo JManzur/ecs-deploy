@@ -45,7 +45,7 @@ resource "aws_ecs_task_definition" "demo_app_td" {
   memory                   = var.demo_app["memory"]
   container_definitions    = data.template_file.demo_app_tpl.rendered
 
-  tags = { Name = "${var.name-prefix}-Demo-App-TD" }
+  tags = { Name = "${var.name_prefix}-Demo-App-TD" }
 }
 
 #Service definition
@@ -73,7 +73,7 @@ resource "aws_ecs_service" "demo_app_service" {
     container_port   = var.demo_app["port"]
   }
 
-  tags = { Name = "${var.name-prefix}-Demo-App-Srv" }
+  tags = { Name = "${var.name_prefix}-Demo-App-Srv" }
 
   depends_on = [aws_lb_listener.demo_app_listener]
 }

@@ -3,7 +3,7 @@ resource "aws_security_group" "demo_app_sg" {
   name        = "demo_app_sg"
   description = "Allow public access to the ALB"
   vpc_id      = var.vpc_id
-  tags        = { Name = "${var.name-prefix}-Internet-To-ALB" }
+  tags        = { Name = "${var.name_prefix}-Internet-To-ALB" }
 
   ingress {
     protocol    = "tcp"
@@ -26,7 +26,7 @@ resource "aws_security_group" "ecs_tasks" {
   name        = "demo-app-tasks-sg"
   description = "Allow ALB to ECS ONLY"
   vpc_id      = var.vpc_id
-  tags        = { Name = "${var.name-prefix}-ALB-To-ECS" }
+  tags        = { Name = "${var.name_prefix}-ALB-To-ECS" }
 
   ingress {
     protocol        = "tcp"

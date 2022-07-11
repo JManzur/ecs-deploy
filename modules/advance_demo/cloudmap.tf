@@ -3,13 +3,14 @@ resource "aws_service_discovery_private_dns_namespace" "apps" {
   name        = "app"
   vpc         = var.vpc_id
   description = "App Discovery Managed Zone"
-  tags        = { Name = "${var.name-prefix}-DNS" }
+  tags        = { Name = "${var.name_prefix}-DNS" }
 }
 
 #Provides a Service Discovery Service resource:
 resource "aws_service_discovery_service" "apps" {
   for_each = toset([
-    "${var.db_connection_test["name"]}"
+    "${var.db_connection_test["name"]}",
+    "${var.dummy_backend["name"]}"
   ])
 
   name = each.key

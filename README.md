@@ -4,16 +4,25 @@
 This terraform project deploy a production ready ECS Cluster using fargate instances. As an example I'm using a simple python-flask application of which you can learn more in [this link](https://github.com/JManzur/flask-demo).
 
 At the end of the deployment, you will have:
-- **Full VPC** with segmented subnets, nat gateway, internet gateway, basic routing tables and an initial security group.
-- **Elastic Container Registry (ECR)** with Lifecycle Policy.
-- **Automated and reusable way to build, tag and push a Docker image**.
-- **Application Load Balancer (ALB)** ready to route any request to the fargate instances, even when they are scale up or down.
-- **Security Groups** one to allow access from the outside world to the ALB, and other to provide secure access from the ALB to the ECS cluster private subnet.
-- **Auto Scaling configuration** based on an cloudwatch trigger that monitor the container cpu utilization. 
-- **IAM Role** capable of running ECS task, get parameter from the system manager parameter store, and allow the use of "ecs execute-command" to be able to access any docker container running inside a fargate instance. (ssh-like access). 
+- VPC Module:
+    - **Full VPC** with segmented subnets, nat gateway, internet gateway, basic routing tables and an initial security group.
+- ECS Module:
+    - **Elastic Container Registry (ECR)** with Lifecycle Policy.
+    - **Automated and reusable way to build, tag and push a Docker image**.
+    - **Application Load Balancer (ALB)** ready to route any request to the fargate instances, even when they are scale up or down.
+    - **Security Groups** one to allow access from the outside world to the ALB, and other to provide secure access from the ALB to the ECS cluster private subnet.
+    - **Auto Scaling configuration** based on an cloudwatch trigger that monitor the container cpu utilization. 
+    - **IAM Role** capable of running ECS task, get parameter from the system manager parameter store, and allow the use of "ecs execute-command" to be able to access any docker container running inside a fargate instance. (ssh-like access). 
     - **NOTE**: To achieve that, the flag "enable_execute_command" MUST be set to "true" in the ecs service definition.
-- Working **Elastic Container Service (ECS)** cluster with the flask-demo app deployed and accessible via the ALB DNS. Which will be conveniently output at the end of the deployment using the "flask-alb-dns" value form the output.tf file.
-- And of course you will have **everything properly (and beautifully) tagged** :wink: .
+    - Working **Elastic Container Service (ECS)** cluster with the flask-demo app deployed and accessible via the ALB DNS. Which will be conveniently output at the end of the deployment using the "flask-alb-dns" value form the output.tf file.
+- Advance Demo Module:
+    - MySQL RDS Instance
+    - DB Connection testing Application: A FastAPI application that connects to the RDS instance and returns a json with the connection status.
+    - SSM Parameter store for the database connection credentials.
+    - CloudMap hosted zone.
+    - Dummy Backend application to test the cloudmap communication.
+
+And of course you will have **everything properly (and beautifully) tagged** :wink: .
 
 ## High level diagram:
 

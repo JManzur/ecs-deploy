@@ -86,17 +86,17 @@ data "aws_iam_policy_document" "ecs_role_source" {
 
 # ECS IAM Policy
 resource "aws_iam_policy" "ecs_policy" {
-  name   = "${var.name-prefix}-Policy"
+  name   = "${var.name_prefix}-Policy"
   path   = "/"
   policy = data.aws_iam_policy_document.ecs_policy_source.json
-  tags   = { Name = "${var.name-prefix}-Policy" }
+  tags   = { Name = "${var.name_prefix}-Policy" }
 }
 
 # ECS IAM Role (ECS Task Execution role)
 resource "aws_iam_role" "ecs_role" {
-  name               = "${var.name-prefix}-Role"
+  name               = "${var.name_prefix}-Role"
   assume_role_policy = data.aws_iam_policy_document.ecs_role_source.json
-  tags               = { Name = "${var.name-prefix}-Role" }
+  tags               = { Name = "${var.name_prefix}-Role" }
 }
 
 # Attach ecs Role and Policy

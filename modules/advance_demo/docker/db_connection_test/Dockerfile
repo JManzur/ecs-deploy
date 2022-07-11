@@ -1,10 +1,10 @@
 FROM python:3.9
+LABEL maintainer="@JManzur"
 
 WORKDIR /usr/src/app/
 
 COPY requirements.txt /usr/src/app/
 COPY app.py /usr/src/app/
-COPY log_conf.yml /usr/src/app/
 ADD config /usr/src/app/config
 
 ENV MYSQL_USER=${MYSQL_USER}
@@ -12,7 +12,7 @@ ENV MYSQL_PASSWD=${MYSQL_PASSWD}
 ENV MYSQL_HOST=${MYSQL_HOST}
 ENV MYSQL_PORT=${MYSQL_PORT}
 ENV MYSQL_DB=${MYSQL_DB}
-ENV AWS_DEFAULT_REGION=us-east-1
+ENV AWS_DEFAULT_REGION=${AWS_REGION}
 
 RUN pip install --no-cache-dir --upgrade -r /usr/src/app/requirements.txt
 

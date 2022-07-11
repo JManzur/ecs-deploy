@@ -2,7 +2,7 @@
 resource "aws_ecr_repository" "demo_app_flask_repository" {
   name                 = "demo_app_flask_repository"
   image_tag_mutability = "MUTABLE"
-  tags                 = { Name = "${var.name-prefix}-ECR" }
+  tags                 = { Name = "${var.name_prefix}-ECR" }
 
   image_scanning_configuration {
     scan_on_push = var.scan_docker_image_on_push

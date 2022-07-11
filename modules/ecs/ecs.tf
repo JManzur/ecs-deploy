@@ -1,7 +1,7 @@
 resource "aws_ecs_cluster" "demo_cluster" {
   name = "demo-cluster"
 
-  tags = { Name = "${var.name-prefix}-Cluster" }
+  tags = { Name = "${var.name_prefix}-Cluster" }
 }
 
 resource "aws_ecs_cluster_capacity_providers" "demo_cluster" {

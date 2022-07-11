@@ -4,11 +4,16 @@ output "demo_app_alb_dns" {
 }
 
 output "db_connection_test_lb_dns" {
-  value       = module.advance_demo.db_connection_test_lb_dns
+  value       = module.advance_demo[0].db_connection_test_lb_dns
   description = "The DB Connection Test ALB FQDN"
 }
 
 output "database_endpoint" {
-  value       = module.advance_demo.database_endpoint
+  value       = module.advance_demo[0].database_endpoint
   description = "The Database connection endpoint"
+}
+
+output "db_parameters_arn" {
+  value       = module.advance_demo[0].db_parameters_arn
+    description = "The DB Database Parameters ARN"
 }

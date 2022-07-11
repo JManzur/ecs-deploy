@@ -6,7 +6,7 @@ resource "aws_lb" "demo_app_alb" {
   security_groups    = [aws_security_group.demo_app_sg.id]
   subnets            = [var.public_subnet[0], var.public_subnet[1]]
 
-  tags = { Name = "${var.name-prefix}-ALB" }
+  tags = { Name = "${var.name_prefix}-ALB" }
 }
 
 #ALB Target
@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "demo_app_tg" {
   vpc_id      = var.vpc_id
   target_type = "ip"
 
-  tags = { Name = "${var.name-prefix}-TG" }
+  tags = { Name = "${var.name_prefix}-TG" }
 
   health_check {
     healthy_threshold   = "3"
@@ -36,7 +36,7 @@ resource "aws_lb_listener" "demo_app_listener" {
   port              = var.demo_app["port"]
   protocol          = "HTTP"
 
-  tags = { Name = "${var.name-prefix}-Listener" }
+  tags = { Name = "${var.name_prefix}-Listener" }
 
   default_action {
     target_group_arn = aws_lb_target_group.demo_app_tg.id

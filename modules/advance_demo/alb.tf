@@ -6,7 +6,7 @@ resource "aws_lb" "db_connection_test" {
   security_groups    = [aws_security_group.db_connection_test_alb.id]
   subnets            = [var.public_subnet[0], var.public_subnet[1]]
 
-  tags = { Name = "${var.name-prefix}-DB-Connection-Test-ALB" }
+  tags = { Name = "${var.name_prefix}-DB-Connection-Test-ALB" }
 }
 
 #ALB Target
@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "db_connection_test" {
   vpc_id      = var.vpc_id
   target_type = "ip"
 
-  tags = { Name = "${var.name-prefix}-DB-Connection-Test-TG" }
+  tags = { Name = "${var.name_prefix}-DB-Connection-Test-TG" }
 
   health_check {
     healthy_threshold   = "3"
@@ -36,7 +36,7 @@ resource "aws_lb_listener" "db_connection_test" {
   port              = var.db_connection_test["port"]
   protocol          = "HTTP"
 
-  tags = { Name = "${var.name-prefix}-DB-Connection-Test-Listener" }
+  tags = { Name = "${var.name_prefix}-DB-Connection-Test-Listener" }
 
   default_action {
     target_group_arn = aws_lb_target_group.db_connection_test.id

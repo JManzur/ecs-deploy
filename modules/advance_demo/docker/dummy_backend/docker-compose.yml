@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  db:
+    image: 62d54959909d
+    container_name: DUMMY_BACKEND
+    restart: unless-stopped
+    environment:
+    - AWS_REGION=us-east-1
+    ports:
+    - 8049:8049/tcp

@@ -31,6 +31,10 @@ resource "aws_ssm_parameter" "db_username" {
   value       = var.DB_USERNAME
 
   tags = { Database = "${aws_db_instance.mysql.arn}" }
+
+  depends_on = [
+    aws_db_instance.mysql
+  ]
 }
 
 resource "aws_ssm_parameter" "db_password" {
@@ -40,6 +44,10 @@ resource "aws_ssm_parameter" "db_password" {
   value       = var.DB_PASSWORD
 
   tags = { Database = "${aws_db_instance.mysql.arn}" }
+
+  depends_on = [
+    aws_db_instance.mysql
+  ]
 }
 
 resource "aws_ssm_parameter" "db_name" {
@@ -49,4 +57,8 @@ resource "aws_ssm_parameter" "db_name" {
   value       = var.database["name"]
 
   tags = { Database = "${aws_db_instance.mysql.arn}" }
+
+  depends_on = [
+    aws_db_instance.mysql
+  ]
 }

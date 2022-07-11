@@ -18,37 +18,25 @@ variable "project-tags" {
   }
 }
 
-#Usage: tags = { Name = "${var.name-prefix}-lambda" }
-variable "name-prefix" {
+#Usage: tags = { Name = "${var.name_prefix}-lambda" }
+variable "name_prefix" {
   type    = string
-  default = "ECS-POC"
+  default = "ECS"
 }
 
 variable "DeployThisModule" {
   type    = bool
-  default = false
+  default = true
+  description = "If set to false, the module will not be deployed"
 }
 
 variable "scan_docker_image_on_push" {
   type    = bool
   default = false
+  description = "Ref: https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html"
 }
+
+/* Variables from .env file: */
 
 variable "DB_USERNAME" {}
-
 variable "DB_PASSWORD" {}
-
-#Use: var.engine["engine"]
-variable "database" {
-  type = map(any)
-  default = {
-    "port"         = 3306,
-    "identifier"   = "mysqlpoc",
-    "engine"       = "mysql",
-    "version"      = "8.0.29",
-    "class"        = "db.t3.micro",
-    "name"         = "pocdb",
-    "storage"      = 20,
-    "subnet_group" = "mysql_subnet_group"
-  }
-}

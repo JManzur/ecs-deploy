@@ -13,34 +13,14 @@
         "protocol": "tcp"
       }
     ],
-    "environment": null,
-    "environmentFiles": [],
-    "secrets": [
-       {
-          "name": "AWS_DEFAULT_REGION",
-          "valueFrom": "${aws_region}"
-       },
-       {
-          "name": "MYSQL_HOST",
-          "valueFrom": "${MYSQL_HOST}"
-       },
-       {
-          "name": "MYSQL_PORT",
-          "valueFrom": "${MYSQL_PORT}"
-       },
-       {
-          "name": "MYSQL_DB",
-          "valueFrom": "${MYSQL_DB}"
-       },
-       {
-          "name": "MYSQL_USER",
-          "valueFrom": "${MYSQL_USER}"
-       },
-       {
-          "name": "MYSQL_PASSWD",
-          "valueFrom": "${MYSQL_PASSWD}"
-       }
+    "environment": [
+      {
+         "name": "AWS_DEFAULT_REGION",
+          "value": "${aws_region}"
+      }
     ],
+    "environmentFiles": [],
+    "secrets": null,
     "mountPoints": null,
     "volumesFrom": null,
     "hostname": null,

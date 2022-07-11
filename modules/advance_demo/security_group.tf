@@ -1,7 +1,9 @@
+/* Database Connection test app */ 
+
 ## SG Rule: VPC > RDS
 resource "aws_security_group" "mysql" {
   name        = "mysql_sg"
-  description = "Allow public access to the ALB"
+  description = "Allow access to RDS from the VPC"
   vpc_id      = var.vpc_id
   tags        = { Name = "VPC-To-RDS" }
 
@@ -30,7 +32,7 @@ resource "aws_security_group" "db_connection_test_alb" {
   name        = "db_connection_test_alb"
   description = "Form User IP to the ALB"
   vpc_id      = var.vpc_id
-  tags        = { Name = "${var.name-prefix}-Form-User-IP-To-ALB" }
+  tags        = { Name = "${var.name_prefix}-Form-User-IP-To-ALB" }
 
   ingress {
     protocol    = "tcp"
@@ -53,7 +55,7 @@ resource "aws_security_group" "db_connection_test" {
   name        = "db_connection_test_sg"
   description = "Allow ALB to DB Connection Test ONLY"
   vpc_id      = var.vpc_id
-  tags        = { Name = "${var.name-prefix}-ALB-To-DB-Connection-Test" }
+  tags        = { Name = "${var.name_prefix}-ALB-To-DB-Connection-Test" }
 
   ingress {
     protocol        = "tcp"
@@ -61,6 +63,31 @@ resource "aws_security_group" "db_connection_test" {
     to_port         = var.db_connection_test["port"]
     security_groups = [aws_security_group.db_connection_test_alb.id]
     description     = "ALB to DB Connection Test"
+  }
+
+  egress {
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+/* Dummy Backend app */ 
+
+## SG Rule: VPC > Dummy Backend app
+resource "aws_security_group" "dummy_backend" {
+  name        = "dummy_backend_sg"
+  description = "Allow access to the Dummy Backend app from VPC"
+  vpc_id      = var.vpc_id
+  tags        = { Name = "VPC-To-DummyBackend" }
+
+  ingress {
+    protocol    = "tcp"
+    from_port   = var.dummy_backend["port"]
+    to_port     = var.dummy_backend["port"]
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "From VPC to Dummy Backend"
   }
 
   egress {

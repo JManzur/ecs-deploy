@@ -1,5 +1,9 @@
-variable "name-prefix" {}
+/* Variables from module: */
+
+variable "name_prefix" {}
 variable "aws_region" {}
+
+/* Locals variables: */
 
 variable "natCount" {
   type    = number

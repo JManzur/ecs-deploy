@@ -6,6 +6,18 @@
         "CONTAINER_NAME": "demo_flask_app"
     },
     {
+        "AWS_REGION": "us-east-1",
+        "ECS_CLUSTER": "demo-cluster",
+        "CONTAINER_FAMILY": "db_connection_test",
+        "CONTAINER_NAME": "db_connection_test"
+    },
+    {
+        "AWS_REGION": "us-east-1",
+        "ECS_CLUSTER": "demo-cluster",
+        "CONTAINER_FAMILY": "dummy_backend",
+        "CONTAINER_NAME": "dummy_backend"
+    },
+    {
         "AWS_PROFILE": "some-profile",
         "AWS_REGION": "some-region",
         "ECS_CLUSTER": "some-cluster",
