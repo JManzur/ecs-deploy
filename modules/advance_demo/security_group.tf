@@ -65,6 +65,14 @@ resource "aws_security_group" "db_connection_test" {
     description     = "ALB to DB Connection Test"
   }
 
+  ingress {
+    description = "Allow PING"
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 8
+    to_port     = 0
+    protocol    = "icmp"
+  }
+
   egress {
     protocol    = "-1"
     from_port   = 0
@@ -88,6 +96,14 @@ resource "aws_security_group" "dummy_backend" {
     to_port     = var.dummy_backend["port"]
     cidr_blocks = ["0.0.0.0/0"]
     description = "From VPC to Dummy Backend"
+  }
+
+  ingress {
+    description = "Allow PING"
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 8
+    to_port     = 0
+    protocol    = "icmp"
   }
 
   egress {

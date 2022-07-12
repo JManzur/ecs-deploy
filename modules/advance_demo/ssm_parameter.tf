@@ -4,8 +4,6 @@ resource "aws_ssm_parameter" "db_endpoint" {
   type        = "SecureString"
   value       = split(":", "${aws_db_instance.mysql.endpoint}")[0]
 
-  tags = { Database = "${aws_db_instance.mysql.arn}" }
-
   depends_on = [
     aws_db_instance.mysql
   ]
@@ -16,8 +14,6 @@ resource "aws_ssm_parameter" "db_port" {
   description = "The database port"
   type        = "SecureString"
   value       = split(":", "${aws_db_instance.mysql.endpoint}")[1]
-
-  tags = { Database = "${aws_db_instance.mysql.arn}" }
 
   depends_on = [
     aws_db_instance.mysql
@@ -30,8 +26,6 @@ resource "aws_ssm_parameter" "db_username" {
   type        = "SecureString"
   value       = var.DB_USERNAME
 
-  tags = { Database = "${aws_db_instance.mysql.arn}" }
-
   depends_on = [
     aws_db_instance.mysql
   ]
@@ -43,8 +37,6 @@ resource "aws_ssm_parameter" "db_password" {
   type        = "SecureString"
   value       = var.DB_PASSWORD
 
-  tags = { Database = "${aws_db_instance.mysql.arn}" }
-
   depends_on = [
     aws_db_instance.mysql
   ]
@@ -55,8 +47,6 @@ resource "aws_ssm_parameter" "db_name" {
   description = "The database name"
   type        = "SecureString"
   value       = var.database["name"]
-
-  tags = { Database = "${aws_db_instance.mysql.arn}" }
 
   depends_on = [
     aws_db_instance.mysql

@@ -13,13 +13,14 @@
         "protocol": "tcp"
       }
     ],
-    "environment": null,
+    "environment": [
+      {
+         "name": "AWS_DEFAULT_REGION",
+          "value": "${aws_region}"
+      }
+    ],
     "environmentFiles": [],
     "secrets": [
-       {
-          "name": "AWS_DEFAULT_REGION",
-          "valueFrom": "${aws_region}"
-       },
        {
           "name": "MYSQL_HOST",
           "valueFrom": "${MYSQL_HOST}"

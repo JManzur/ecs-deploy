@@ -1,7 +1,10 @@
-FROM python:3.9
+FROM python:latest
 LABEL maintainer="@JManzur"
+ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /usr/src/app/
+
+RUN apt-get update && apt-get install -y iputils-ping jq telnet apt-utils
 
 COPY requirements.txt /usr/src/app/
 COPY app.py /usr/src/app/

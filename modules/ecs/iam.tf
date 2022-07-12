@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "ecs_policy_source" {
     sid    = "SSMPolicy"
     effect = "Allow"
     actions = [
-      "ssm:GetParameter",
+      "ssm:GetParameters",
       "ssmmessages:CreateControlChannel",
       "ssmmessages:CreateDataChannel",
       "ssmmessages:OpenControlChannel",
