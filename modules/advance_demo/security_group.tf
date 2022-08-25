@@ -38,7 +38,7 @@ resource "aws_security_group" "db_connection_test_alb" {
     protocol    = "tcp"
     from_port   = var.db_connection_test["port"]
     to_port     = var.db_connection_test["port"]
-    cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
+    cidr_blocks = ["${chomp(data.http.myip.response_body)}/32"]
     description = "Form User IP"
   }
 

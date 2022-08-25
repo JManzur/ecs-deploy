@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, MetaData
 from os import getenv
 from dotenv import load_dotenv
+
 load_dotenv()
 
 MYSQL_USER = getenv("MYSQL_USER")

@@ -21,7 +21,7 @@ variable "database" {
     "port"         = 3306,
     "identifier"   = "mysqlpoc",
     "engine"       = "mysql",
-    "version"      = "8.0.29",
+    "version"      = "8.0",
     "class"        = "db.t3.micro",
     "name"         = "pocdb",
     "storage"      = 20,
