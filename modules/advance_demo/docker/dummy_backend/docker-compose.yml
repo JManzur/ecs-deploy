@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: 62d54959909d
+    image: d48e0040a3e9
     container_name: DUMMY_BACKEND
     restart: unless-stopped
     environment:
